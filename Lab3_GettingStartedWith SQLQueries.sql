@@ -13,7 +13,7 @@
 	FROM agents
 	WHERE name='Smith';
 
--- unTESTED_3. List the pid, name, and priceUSD of products with quantity more than 208,000.
+-- TESTED_3. List the pid, name, and priceUSD of products with quantity more than 208,000.
 	SELECT pid, name, priceUSD
 	FROM products
 	WHERE quantity > 208000;
