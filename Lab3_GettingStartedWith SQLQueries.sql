@@ -29,13 +29,13 @@
 	WHERE city !='New York'
 		AND city != 'Tokyo';
 
--- unTESTED_6. List all data for products not in Dallas or Duluth that cost US$1 or more.
+-- TESTED_6. List all data for products not in Dallas or Duluth that cost US$1 or more.
 	SELECT *
 	FROM products
 	WHERE (city != 'Dallas' OR city != 'Duluth')
 		AND (priceUSD >= '1.00'); 
 
--- unTESTED_7. List all data for orders in January or March.
+-- TESTED_7. List all data for orders in January or March.
 	SELECT *
 	FROM orders
 	WHERE mon='jan'
