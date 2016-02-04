@@ -18,12 +18,12 @@
 	FROM products
 	WHERE quantity > 208000;
 
--- unTESTED_4. List the names and cities of customers in Dallas.
+-- TESTED_4. List the names and cities of customers in Dallas.
 	SELECT name, city
 	FROM customers
 	WHERE city='Dallas';
 
--- unTESTED_5. List the names of agents not in New York and not in Tokyo.
+-- TESTED_5. List the names of agents not in New York and not in Tokyo.
 	SELECT name
 	FROM agents
 	WHERE city !='New York'
