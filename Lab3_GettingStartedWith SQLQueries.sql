@@ -41,13 +41,13 @@
 	WHERE mon='jan'
 		OR mon='mar';
 
--- unTESTED_8. List all data for orders in February less than us$500.
+-- TESTED_8. List all data for orders in February less than us$500.
 	SELECT *
 	FROM orders
 	WHERE mon='feb'
 		AND totalUSD < 500.00;
 
--- unTESTED_9. List all orders from the customer whose cid is C005.
+-- TESTED_9. List all orders from the customer whose cid is C005.
 	SELECT *
 	FROM orders
 	WHERE cid='C005';
