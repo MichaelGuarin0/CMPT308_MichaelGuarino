@@ -82,8 +82,31 @@ from customers
 where city='Dallas' or city='London';
 
 -- 8. Tell me about constraints: 
--- What are they?
--- What are they good for?
--- What's the advantage of putting that sort of thing inside the database?
--- Make up some examples of good uses of check constraints and some examples of bad uses of check constraints
--- Explain the differences in your examples and argue your case.
+-- Q) What are they?
+-- A) Constraints are ways to constrain data, restricting the domain for a specified attribute. 
+-- Q) What are they good for?
+-- A) Constraints are often used to enforce the referential integrity of the data and maintain logically complete data within the database.
+-- Q) What's the advantage of putting that sort of thing inside the database?
+-- A) Constraints work to ensure that the database maintains logically complete data by enforcing referential integrity. 
+-- Q) Make up some examples of good uses of check constraints and some examples of bad uses of check constraints. 
+-- A) Example 1. unique constraint violation: This is a good use of check constraints because it makes sure we don't have two entries with the same primary key.
+		-- INSERT INTO Products( pid, name, city, quantity, priceUSD )
+  			-- VALUES('p08', 'clip', 'Newark', 200600, 1.25 );
+  		-- INSERT INTO Products( pid, name, city, quantity, priceUSD )
+  			-- VALUES('p08', 'clip', 'Newark', 200600, 1.25 );
+  		-- ERROR:  duplicate key value violates unique constraint "products_pkey"
+		-- DETAIL:  Key (pid)=(p08) already exists.
+	
+	-- Example 2. foreign key constraint violation: This is a good use of check constraints because it ensures that we delete the foreign keys before we delete the parent node 'ACME' because if we were to delete 'ACME' first we would have incomplete data where 'ACME's foreign keys were stored.
+		-- DELETE
+		-- FROM customers
+		-- WHERE customer.name='ACME';
+		-- ERROR:  missing FROM-clause entry for table "customer"
+		-- LINE 167: where customer.name='ACME';
+
+	-- Example 3. not null values overused: This is a bad use of check constraints where not null forces socialSecurityNumber to have a value although not all students have a social security number.
+		 -- CREATE TABLE students( 
+		 	--id 	integer not null,
+		 	--socialSecurityNumber	integer not null,
+		 	--...); 
+
