@@ -41,7 +41,7 @@ SELECT customers.name AS customers, agents.name AS agents, customers.city AS cit
 FROM customers INNER JOIN agents ON customers.city=agents.city;
 
 -- 7) TESTED_WORKS; however unable to show more than one customer name. Show the name and city of customers who live in the city that makes the fewest different kinds of products.
-SELECT products.city, customers.name 
+SELECT products.city, customers.name, count(products.city) AS Num_of_Products 
 FROM products INNER JOIN customers ON products.city=customers.city 
 GROUP BY products.city, customers.name
-ORDER BY products.city LIMIT 1;
+ORDER BY products.city DESC LIMIT 1;
