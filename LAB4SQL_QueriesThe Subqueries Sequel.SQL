@@ -9,28 +9,36 @@ SELECT city
 FROM agents
 WHERE aid in(SELECT aid
 			FROM orders
-			WHERE cid ='c002'
-			);
+			WHERE cid ='c002');
 
 -- 2. TESTED_Get the ids of products ordered through any agent who takes at least one order from a customer in Dallas, sorted by pid from highest to lowest. (This is not the same as asking for ids of products ordered by customers in Dallas.)
+-- incorrect solution
 select pid
 from orders
 where cid in(select cid 
 		from customers
-		where city='Dallas'
-		)
+		where city='Dallas')
 group by pid
 having count(aid)>=1 
 order by pid desc;
 
+-- corrected solution
+select distinct pid
+from orders
+where aid in (select aid
+				from orders
+				where cid in (select cid
+								from customers
+								where city='Dallas')
+				)
+order by pid DESC; --sort by is the cue to use order by
 
 -- 3. TESTED_Get the ids and names of cutomers who did not place an order through agent a01.
 select  cid, name 
 from customers
 where cid Not in (select cid
 				from orders
-				where aid='a01'
-				);
+				where aid='a01');
 
 -- 4. TESTED_Get the ids of customers who ordered both product p01 and p07
 select cid
@@ -45,41 +53,46 @@ where pid='p07';
 select pid 
 from products
 where pid not in(select pid
-			from orders
-			where cid in(
-						select cid
-							from orders
-							where aid='a07'
-							)
-							)
+					from orders
+					where cid in(select cid
+									from orders
+									where aid='a07')
+				)
 group by pid
 order by pid desc;
 
 -- 6. TESTED_Get the name, discounts, and city for all customers who place orders through agents in London or New York.
 select name, discount, city
 from customers
-where cid in (SELECT cid
+where cid in (SELECT distinct cid
 				FROM orders
 				WHERE aid IN (SELECT aid
 								FROM agents
-								WHERE city IN ('New York', 'London')
-								)
+								WHERE city IN ('New York', 'London'))
 				);
 
 -- 7. TESTED_Get all customers who have the same discount as that of any customers in Dallas or London.
+-- incorrect solution
 select cid 
 from customers
 where discount in (select discount
 					from customers
 					where cid in(select cid
 									from customers
-									where city='Dallas' or city='London'
-									)
+									where city='Dallas' or city='London')
 					)
 EXCEPT
 select cid
 from customers
 where city='Dallas' or city='London';
+
+-- correct solution
+select * 
+from customers
+where discount in (select discount
+					from customers
+					where city in ('Dallas', 'London')
+					)
 
 -- 8. Tell me about constraints: 
 -- Q) What are they?

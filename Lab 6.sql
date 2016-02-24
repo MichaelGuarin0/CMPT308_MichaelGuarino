@@ -1,0 +1,2 @@
+-- error in orders table in question 6...find it
+-- question 1 similar to question 7 from lab 5
