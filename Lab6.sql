@@ -54,3 +54,5 @@ from orders);
 select customers.cid, orders.cid
 from customers left outer join orders on customers.cid=orders.cid;
  --a right outer join mean keep all records from the second table and insert null values where the 1st table doesn't match.
+select orders.aid, agents.aid
+from orders right outer join agents on orders.aid=agents.aid;
